@@ -1,0 +1,10 @@
+ICMP rule:
+    alert icmp any any -> any any (msg:”ICMP Packet detected”; sid:1000001; rev:1;)
+SSH rule:
+    alert tcp any any -> $HOME_NET 22 (msg:”Successful SSH Login Detected”; flags:PA; sid:100002; rev:3;)
+Command Execution rule:
+    alert tcp any any -> $HOME_NET any (msg:”Command Execution Attempt”; content:”GET”; content:”/etc/passwd”; sid:100003; rev:2;)
+Telnet Detection Rule
+    alert tcp any any -> any 23 (msg:”Telnet Connection Detected”; sid:1000001;)
+NMAP rule:
+    alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:”Nmap TCP Connect Scan”; flags:S,12; threshold:type both, track by_src, count 20, seconds 60; sid:100008; rev:1;
